@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write a Review | Premier Realty</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="props-page">
+
+  <nav id="navbar" class="scrolled">
+    <div class="nav-brand">
+      <span class="brand-mark">PR</span>
+      <span class="brand-name">Premier Realty</span>
+    </div>
+    <ul>
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#listings">Listings</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="index.html#contact">Book a Consultation</a>
+  </nav>
+
+  <div class="props-hero" style="padding: 80px 0 60px;">
+    <div class="hero-grid-overlay"></div>
+    <div class="props-hero-content">
+      <div class="hero-eyebrow">
+        <span class="rule short"></span>
+        <span class="label-text">Premier Realty</span>
+        <span class="rule short"></span>
+      </div>
+      <h1 class="props-hero-title">Share Your <em>Experience</em></h1>
+      <p class="props-hero-sub">Your feedback helps other families find the right home and agent.</p>
+    </div>
+  </div>
+
+  <section class="ar-section">
+    <div class="ar-container">
+
+      <div class="ar-card">
+        <div class="ar-card-header">
+          <div class="ar-avatar">SM</div>
+          <div>
+            <strong>Sarah Mitchell</strong>
+            <span>Premier Realty Agent</span>
+          </div>
+        </div>
+        <div class="ar-divider"></div>
+
+        <form id="reviewForm" class="ar-form" novalidate>
+          <div class="ar-form-row">
+            <div class="ar-field">
+              <label for="reviewAuthor">Your Full Name <span class="required">*</span></label>
+              <input type="text" id="reviewAuthor" placeholder="Jane Smith" required autocomplete="name">
+            </div>
+            <div class="ar-field">
+              <label for="reviewLocation">Neighbourhood</label>
+              <input type="text" id="reviewLocation" placeholder="e.g. Oakwood Heights">
+            </div>
+          </div>
+
+          <div class="ar-field">
+            <label>Your Rating <span class="required">*</span></label>
+            <div class="ar-stars" id="starRating">
+              <span class="ar-star" data-val="1">★</span>
+              <span class="ar-star" data-val="2">★</span>
+              <span class="ar-star" data-val="3">★</span>
+              <span class="ar-star" data-val="4">★</span>
+              <span class="ar-star" data-val="5">★</span>
+            </div>
+            <input type="hidden" id="reviewRating" value="0">
+            <p class="ar-rating-hint" id="ratingHint">Click a star to rate</p>
+          </div>
+
+          <div class="ar-field">
+            <label for="reviewText">Your Review <span class="required">*</span></label>
+            <textarea id="reviewText" rows="4" placeholder="Share your experience working with Sarah — what stood out, how the process went, and what you'd tell someone considering her services..." required></textarea>
+          </div>
+
+          <p class="ar-notice">Reviews rated 3 stars or above are shown publicly on the website.</p>
+
+          <div class="ar-actions">
+            <a class="ar-back-link" href="index.html#testimonials">&larr; Back to site</a>
+            <button type="submit" class="btn-primary">Submit Review &rarr;</button>
+          </div>
+
+          <div class="ar-success hidden" id="reviewSuccess">
+            <span class="ar-success-icon">&#10003;</span>
+            <div>
+              <strong>Thank you for your review!</strong>
+              <p>Your feedback has been submitted and will appear on the website if it meets our visibility guidelines.</p>
+            </div>
+          </div>
+          <div class="ar-error hidden" id="reviewError"></div>
+        </form>
+      </div>
+
+      <div class="ar-side">
+        <div class="ar-side-card">
+          <div class="ar-side-icon">⭐</div>
+          <strong>Why Reviews Matter</strong>
+          <p>Over 90% of buyers say agent reviews influenced their decision. Your words make a real difference.</p>
+        </div>
+        <div class="ar-side-card">
+          <div class="ar-side-icon">🔒</div>
+          <strong>Your Privacy</strong>
+          <p>Your review is stored locally on this device. Only your name and neighbourhood are shown publicly.</p>
+        </div>
+        <div class="ar-side-card">
+          <div class="ar-side-icon">✅</div>
+          <strong>Visible Reviews</strong>
+          <p>Reviews with 3 or more stars are shown in the testimonials section of the homepage.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark">PR</span>
+        <span class="brand-name">Premier Realty</span>
+      </div>
+      <p class="footer-copy">&copy; 2024 Premier Realty &mdash; All rights reserved.</p>
+      <div class="footer-links">
+        <a href="properties.html">All Properties</a>
+        <a href="admin-login.html">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    var currentRating = 0;
+    var stars = document.querySelectorAll('.ar-star');
+    var ratingHint = document.getElementById('ratingHint');
+    var ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
+
+    stars.forEach(function (star) {
+      star.addEventListener('mouseover', function () {
+        var val = parseInt(star.dataset.val);
+        stars.forEach(function (s) {
+          s.classList.toggle('ar-star-hover', parseInt(s.dataset.val) <= val);
+        });
+        ratingHint.textContent = ratingLabels[val] || '';
+      });
+      star.addEventListener('mouseleave', function () {
+        stars.forEach(function (s) { s.classList.remove('ar-star-hover'); });
+        ratingHint.textContent = currentRating ? ratingLabels[currentRating] : 'Click a star to rate';
+      });
+      star.addEventListener('click', function () {
+        currentRating = parseInt(star.dataset.val);
+        document.getElementById('reviewRating').value = currentRating;
+        stars.forEach(function (s) {
+          s.classList.toggle('ar-star-selected', parseInt(s.dataset.val) <= currentRating);
+          s.classList.remove('ar-star-hover');
+        });
+        ratingHint.textContent = ratingLabels[currentRating];
+      });
+    });
+
+    document.getElementById('starRating').addEventListener('mouseleave', function () {
+      stars.forEach(function (s) { s.classList.remove('ar-star-hover'); });
+    });
+
+    document.getElementById('reviewForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var errEl = document.getElementById('reviewError');
+      errEl.classList.add('hidden');
+
+      var author = document.getElementById('reviewAuthor').value.trim();
+      var text = document.getElementById('reviewText').value.trim();
+      var rating = parseInt(document.getElementById('reviewRating').value);
+
+      if (!author) { showError('Please enter your name.'); return; }
+      if (!rating) { showError('Please select a star rating.'); return; }
+      if (!text) { showError('Please write a short review.'); return; }
+
+      DB.addReview({ author: author, location: document.getElementById('reviewLocation').value.trim(), rating: rating, text: text });
+
+      document.getElementById('reviewForm').style.display = 'none';
+      document.getElementById('reviewSuccess').classList.remove('hidden');
+      setTimeout(function () { window.location.href = 'index.html#testimonials'; }, 2800);
+    });
+
+    function showError(msg) {
+      var errEl = document.getElementById('reviewError');
+      errEl.textContent = msg;
+      errEl.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
